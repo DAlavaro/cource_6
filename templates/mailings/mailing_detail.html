@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <section id="pricing" class="pricing">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <h2>{{ object.name }}</h2>
+            </div>
+
+            <div class="row">
+
+
+                <div class="col-lg-4 col-md-6" data-aos="zoom-im" data-aos-delay="100">
+                    <div class="box">
+                        <h3>{{ object.name }} </h3>
+
+                        <ul>
+                            <li>{{ object.start_time }}</li>
+                            <li>{{ object.end_time }}</li>
+                            <li>{{ object.periodicity }}</li>
+                            <li>{{ object.status }}</li>
+                            <li>
+                                {% for client in object.client.all %}
+                                    {{ client }}<br>,
+                                {% endfor %}
+                            </li>
+                            <li>{{ object.message }}</li>
+                        </ul>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </section><!-- End Pricing Section -->
+
+{% endblock %}

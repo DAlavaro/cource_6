@@ -3,24 +3,36 @@ from app.mailings.models import Client
 
 
 class Mailing(models.Model):
-    STARTED = 'S'
-    CREATED = 'C'
-    COMPLETED = 'O'
-    STATUS_CHOICES = (
-        (STARTED, 'Started'),
-        (CREATED, 'Created'),
-        (COMPLETED, 'Completed'),
-    )
+    name = models.CharField(max_length=100, verbose_name='название рассылки')
+    start_time = models.DateTimeField(verbose_name='время начала отправки рассылки')
+    end_time = models.DateTimeField(verbose_name='время окончания отправки рассылки')
 
-    name = models.CharField(max_length=255, verbose_name='Название')
-    mailing_time = models.DateTimeField(verbose_name='Время рассылки')
-    duration = models.DurationField(verbose_name='Длительность рассылки')
-    status = models.CharField(max_length=1, verbose_name='Статус', choices=STATUS_CHOICES, default=CREATED)
+    daily = 'раз в день'
+    weekly = 'раз в неделю'
+    monthly = 'раз в месяц'
+    Periodicity = [
+        (daily, 'раз в день'),
+        (weekly, 'раз в неделю'),
+        (monthly, 'раз в месяц')
+    ]
+    periodicity = models.CharField(max_length=20,verbose_name='периодичность',choices=Periodicity)
+
+
+    finished = 'завершена'
+    created = 'создана'
+    launched = 'запущена'
+    Status = [
+        (finished, 'завершена'),
+        (created, 'создана'),
+        (launched, 'запущена')
+    ]
+    status = models.CharField(max_length=20,verbose_name='статус рассылки',choices=Status,default=created)
+
     client = models.ManyToManyField(Client, verbose_name='Клиенты')
     message = models.ForeignKey('Message', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Cообщение')
 
     def __str__(self):
-        return f'{self.mailing_time} - {self.duration} - {self.status}'
+        return self.name
 
     class Meta:
         verbose_name = 'Рассылка'
