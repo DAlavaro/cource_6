@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="col-12">
+        <div id="hero" class="d-flex align-items-center">
+            <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
+                <div class="card-body">
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <p>Хотите удалить рассылку{{ object.name }}?</p>
+                            <button type="submit" class="btn btn-success">Подтвердить</button>
+                            <a class="btn btn-warning" href="{% url 'mailings:mailing_list' %}">Отмена</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

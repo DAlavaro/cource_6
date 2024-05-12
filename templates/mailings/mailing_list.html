@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div id="hero" class="d-flex align-items-center">
+        <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
+            <div class="text-center">
+                <div class="container-xl">
+                    <div class="table-responsive">
+                        <div class="table-wrapper">
+                            <div class="table-title">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                    <h2 style="color: #000000;"><b>Созданные Рассылки</b></h2>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <a href="{% url 'mailings:mailing_create' %}" class="btn btn-success"
+                                           data-toggle="modal"><i
+                                                class="material-icons">&#xE147;</i> <span>Добавить новую рассылку</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Просмотр</th>
+                                    <th>Название</th>
+                                    <th>Начало</th>
+                                    <th>Окончание</th>
+                                    <th>Периодичность</th>
+                                    <th>Статус</th>
+                                    <th>Сообщение</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for object in object_list %}
+                                    <tr>
+                                        <td><a href="{% url 'mailings:mailing_detail' object.pk %}" class="view"
+                                               data-toggle="modal">
+                                            <i class="material-icons" data-toggle="tooltip" title="View">visibility</i>
+                                        </a>
+                                        </td>
+                                        <td>{{ object.name }}</td>
+                                        <td>{{ object.start_time }}</td>
+                                        <td>{{ object.end_time }}</td>
+                                        <td>{{ object.periodicity }}</td>
+                                        <td>{{ object.status }}</td>
+                                        <td>{{ object.message }}</td>
+                                        <td>
+                                            <a href="{% url 'mailings:mailing_update' object.pk %}" class="edit"
+                                               data-toggle="modal"><i
+                                                    class="material-icons" data-toggle="tooltip"
+                                                    title="Edit">&#xE254;</i></a>
+                                            <a href="{% url 'mailings:mailing_delete' object.pk %}" class="delete"
+                                               data-toggle="modal"><i
+                                                    class="material-icons" data-toggle="tooltip"
+                                                    title="Delete">&#xE872;</i></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
