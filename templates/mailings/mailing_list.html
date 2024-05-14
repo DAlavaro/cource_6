@@ -10,7 +10,7 @@
                             <div class="table-title">
                                 <div class="row">
                                     <div class="col-sm-6">
-                                    <h2 style="color: #000000;"><b>Созданные Рассылки</b></h2>
+                                        <h2 style="color: #000000;"><b>Созданные Рассылки</b></h2>
                                     </div>
                                     <div class="col-sm-6">
                                         <a href="{% url 'mailings:mailing_create' %}" class="btn btn-success"
@@ -29,16 +29,18 @@
                                     <th>Периодичность</th>
                                     <th>Статус</th>
                                     <th>Сообщение</th>
-                                    <th>Actions</th>
+                                    <th>Действия</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 {% for object in object_list %}
                                     <tr>
-                                        <td><a href="{% url 'mailings:mailing_detail' object.pk %}" class="view"
+                                        <td>
+                                            <a href="{% url 'mailings:mailing_detail' object.pk %}" class="view"
                                                data-toggle="modal">
-                                            <i class="material-icons" data-toggle="tooltip" title="View">visibility</i>
-                                        </a>
+                                                <i class="material-icons" data-toggle="tooltip"
+                                                   title="View">visibility</i>
+                                            </a>
                                         </td>
                                         <td>{{ object.name }}</td>
                                         <td>{{ object.start_time }}</td>
@@ -55,6 +57,11 @@
                                                data-toggle="modal"><i
                                                     class="material-icons" data-toggle="tooltip"
                                                     title="Delete">&#xE872;</i></a>
+                                            <a href="{% url 'mailings:mailing_send' object.pk %}" class="send"
+                                               data-toggle="modal">
+                                                <i class="material-icons" data-toggle="tooltip"
+                                                   title="Send">&#xE163;</i>
+                                            </a>
                                         </td>
                                     </tr>
                                 {% endfor %}
